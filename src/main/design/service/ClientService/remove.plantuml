@@ -1,0 +1,36 @@
+@startuml ClientService delete client flow
+Actor user
+Control ClientService
+Control SiteService
+Control PageService
+Control ClientRepository
+Control SiteRepository
+Control PageRepository
+Database database
+
+user -> ClientService : delete client with ClientId
+ClientService -> SiteService : get sites with ClientId as owner
+ClientService -> PageService : get pages with SiteId in sites with SiteId as owner
+PageService -> PageRepository : get pages with SiteId in sites with SiteId as owner
+PageRepository -> database : query pages with SiteId as owner
+database -> PageRepository : return pages
+PageService -> ClientService : return pages with SiteId in sites with SiteId as owner
+ClientService -> PageService : remove pages with siteId in sites with SiteId as owner
+PageService -> PageRepository : delete pages with siteId in sites with SiteId as owner
+
+PageRepository -> database : delete pages with siteId in sites with SiteId as owner
+SiteService -> SiteRepository : delete sites with clientId as owner
+
+ClientService -> ClientRepository : remove
+ClientService -> PageService : remove pages with siteId in sites with SiteId as owner
+PageService -> PageRepository : delete pages with siteId in sites with SiteId as owner
+ClientServce -> SiteRepository : remove sites with clientId as owner
+ClientRepository -> Database : delete cllients
+Database -> Database : cascade delete
+SiteRepository -> Database : delete sites with ClientId as owner
+SiteService -> PageRepository : remove
+PageRepository -> Database : delete pages with siteId in sites with SiteId as owner
+Database -> Database : remove Sites with clientId
+Database -> Database : remove Pages with siteId
+ClientService -> Actor : Done
+@enduml

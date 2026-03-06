@@ -1,0 +1,13 @@
+@startuml AddClient flow
+Actor user
+Control ClientService
+Control ClientRepository
+Database database
+
+user -> ClientService : add client with client details
+ClientService -> ClientRepository : save client details
+ClientRepository -> database : insert client details
+database -> ClientRepository : return clientId
+ClientRepository -> ClientService : return clientId
+ClientService -> user : return stored Client instance
+@enduml

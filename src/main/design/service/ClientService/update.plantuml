@@ -1,0 +1,12 @@
+@startuml Updaate client flow
+Actor user
+Control ClientService
+Control ClientRepository
+Database database
+user -> ClientService : update client with ClientId and new client data
+ClientService -> ClientRepository : update client with ClientId and new client data
+ClientRepository -> database : update client with ClientId and new client data
+database -> ClientRepository : return updated client
+ClientRepository -> ClientService : return updated client
+ClientService -> user : return updated client
+@enduml

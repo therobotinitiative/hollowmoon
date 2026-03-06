@@ -1,0 +1,12 @@
+@startuml Find By Id flow
+Actor user
+Control ClientService
+Control ClientRepository
+Database database
+user -> ClientService : find client with id
+ClientService -> ClientRepository : find client with id
+ClientRepository -> database : query client with id
+database -> ClientRepository : return client details
+ClientRepository -> ClientService : return client details
+ClientService -> user : return client details
+@enduml

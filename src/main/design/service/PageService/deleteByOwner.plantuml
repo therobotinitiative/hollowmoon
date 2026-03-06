@@ -1,0 +1,9 @@
+@startuml Delete Pages by Owner flow
+Actor user
+Control PageService
+Control PageRepository
+Database database
+user -> PageService : delete pages with ownerId
+PageService -> PageRepository : delete pages with ownerId
+PageRepository -> database : delete pages with ownerId
+@enduml

@@ -1,0 +1,10 @@
+@startuml Resolve Client Code flow
+Actor user
+Control ClientCodeService
+Control ClientCodeResolverServer
+user -> ClientCodeService : resolve client code
+ClientCodeService -> ClientCodeResolverServer : request new client code
+ClientCodeResolverServer -> ClientCodeResolverServer : generate new client code
+ClientCodeResolverServer -> ClientCodeService : return new client code
+ClientCodeService -> user : return new client code
+@enduml

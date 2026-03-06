@@ -1,0 +1,12 @@
+@startuml Get Page flow
+Actor user
+Control PageService
+Control PageRepository
+Database database
+user -> PageService : get page with PageId
+PageService -> PageRepository : get page with PageId
+PageRepository -> database : query page with PageId
+database -> PageRepository : return page instance
+PageRepository -> PageService : return page instance
+PageService -> user : return page instance
+@enduml

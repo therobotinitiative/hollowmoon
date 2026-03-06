@@ -1,0 +1,19 @@
+"""
+ GraphQL schema for Page
+"""
+type Page {
+	id: ID!
+	name: String!
+}
+
+type Query {
+	findPage(pageId: ID!): Page
+	pagesByOwner(ownerId: ID!): [Page!]!
+}
+
+type Mutation {
+	addPage(pageName: String!, ownerId: ID!): Page
+    removePage(pageId : ID!): Boolean
+    renamePage(pageId: ID!, pageName : String!): Page
+    changePageOwner(pageId : ID!, ownerId : ID!): Page
+}

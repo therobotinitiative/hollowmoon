@@ -1,0 +1,12 @@
+@startuml Get Sites flow
+Actor user
+Control SiteService
+Control SiteRepository
+Database database
+user -> SiteService : get all sites
+SiteService -> SiteRepository : get all sites
+SiteRepository -> database : get all sites
+database -> SiteRepository : return all sites
+SiteRepository -> SiteService : return all sites
+SiteService -> user : return all sites
+@enduml

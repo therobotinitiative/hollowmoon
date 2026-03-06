@@ -1,0 +1,12 @@
+@startuml Find Site flow
+Actor user
+Control SiteService
+Control SiteRepository
+Database database
+user -> SiteService : find site by site id
+SiteService -> SiteRepository : find site by site id
+SiteRepository -> database : find site by site id
+database -> SiteRepository : return found site
+SiteRepository -> SiteService : return found site
+SiteService -> user : return found site
+@enduml

@@ -1,0 +1,12 @@
+@startuml Remove Site flow
+Actor user
+Control SiteService
+Control SiteRepository
+Database database
+user -> SiteService : remove site by site id
+SiteService -> SiteRepository : delete site by site id
+SiteRepository -> database : delete site by site id
+database -> SiteRepository : return deleted site
+SiteRepository -> SiteService : return deleted site
+SiteService -> user : return deleted site
+@enduml

@@ -1,0 +1,12 @@
+@startuml Add Page flow
+Actor user
+Control PageService
+Control PageRepository
+Database database
+user -> PageService : add page with siteId and page name
+PageService -> PageRepository : add page with siteId and page name
+PageRepository -> database : insert page with siteId and page name
+database -> PageRepository : return page instance
+PageRepository -> PageService : return page instance
+PageService -> user : return page instance
+@enduml

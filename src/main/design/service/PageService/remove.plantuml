@@ -1,0 +1,10 @@
+@startuml Remove Page flow
+Actor user
+Control PageService
+Control PageRepository
+Database database
+user -> PageService : remove page with PageId
+PageService -> PageRepository : remove page with PageId
+PageRepository -> database : remove page with PageId
+PageService -> user : return removed page
+@enduml

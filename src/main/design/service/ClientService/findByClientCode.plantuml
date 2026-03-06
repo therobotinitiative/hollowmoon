@@ -1,0 +1,12 @@
+@startuml Find By Client Code flow
+Actor user
+Control ClientService
+Control ClientRepository
+Database database
+user -> ClientService : find client with client code
+ClientService -> ClientRepository : find client with client code
+ClientRepository -> database : query client with client code
+database -> ClientRepository : return client details
+ClientRepository -> ClientService : return client details
+ClientService -> user : return client details
+@enduml

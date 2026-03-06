@@ -1,0 +1,12 @@
+@startuml GetClients flow
+Actor user
+Control ClientService
+Control ClientRepository
+Database database
+user -> ClientService : get clients
+ClientService -> ClientRepository : get clients
+ClientRepository -> database : query clients
+database -> ClientRepository : return clients
+ClientRepository -> ClientService : return clients
+ClientService -> user : return clients
+@enduml

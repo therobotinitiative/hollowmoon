@@ -1,0 +1,14 @@
+@startuml Database
+entity Client
+entity Site
+entity Page
+entity User
+entity Group
+entity UserGroupMapping
+Client -> Site
+Site -> Page
+User -> UserGroupMapping
+Group -> UserGroupMapping
+UserGroupMapping -> User
+UserGroupMapping -> Group
+@enduml

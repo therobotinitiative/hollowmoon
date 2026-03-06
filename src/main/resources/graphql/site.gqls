@@ -1,0 +1,20 @@
+"""
+ GraphQL schema for Site
+"""
+type Site {
+	id : ID!
+	name: String
+	owner : Client!
+}
+
+extend type Query {
+	sitesByOwner(ownerId : ID!) : [Site!]!
+	siteById(siteId : ID!) : Site
+}
+
+extend type Mutation {
+	addSite(siteName : String!, ownerId : ID!) : Site
+	removeSite(siteId : ID!) : Boolean
+	renameSite(siteName : String!, siteId : ID!): Site
+	changeSiteOwner(ownerId: ID!, siteId : ID!): Site
+}

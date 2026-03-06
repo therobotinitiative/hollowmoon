@@ -1,0 +1,33 @@
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="FM-LOGGER" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>[Forest Moon] %d{HH:mm:ss.SSS} %-5level %logger{36} ==> %msg%n</pattern>
+    11</encoder>
+  </appender>
+
+  <logger name="org.springframework" level="warn" additivity="false">
+    <appender-ref ref="STDOUT" />
+  </logger>
+  
+  <logger name="com.orbital3d.web.application" level="info" additivity="false">
+    <appender-ref ref="FM-LOGGER" />
+  </logger>
+  
+  <logger name="com.orbital3d.web.application.service.impl" level="trace" additivity="false">
+    <appender-ref ref="FM-LOGGER" />
+  </logger>
+  
+  <logger name="com.orbital3d.web" level="info" additivity="false">
+    <appender-ref ref="FM-LOGGER" />
+  </logger>
+  
+  <root level="error" additivity="false">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>

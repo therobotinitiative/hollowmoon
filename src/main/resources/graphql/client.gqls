@@ -1,0 +1,30 @@
+"""
+ GraphQL schema for Client
+"""
+type Client {
+	id:  ID!
+	name: String!
+	clientCode: String
+}
+
+enum SortOrder {
+	ASC
+	DESC
+}
+
+input ClientOrderBy {
+	name: SortOrder
+}
+
+extend type Query {
+	allClients(orderBy: ClientOrderBy): [Client!]!
+	clientById(clientId : ID!): Client
+	clientByClientCode(clientCode: String) : Client
+}
+
+extend type Mutation {
+	addClient(clientName : String!, clientCode : String): Client
+	removeClient(clientId : ID!): Boolean
+	renameClient(clientId : ID!, clientName : String!): Client
+	changeClientCode(clientId : ID!, clientCode : String!): Client
+}

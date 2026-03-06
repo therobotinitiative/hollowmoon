@@ -1,0 +1,12 @@
+@startuml Add Site flow
+Actor user
+Control SiteService
+Control SiteRepository
+Database database
+user -> SiteService : add new site with site data
+SiteService -> SiteRepository : add new site with site data
+SiteRepository -> database : add new site with site data
+database -> SiteRepository : return added site
+SiteRepository -> SiteService : return added site
+SiteService -> user : return added site
+@enduml
