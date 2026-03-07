@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.orbital3d.web.application.service.NamedServiceCrud;
-import com.orbital3d.web.application.service.type.ChildAggregate;
+import com.orbital3d.web.application.service.type.ParentAggregate;
 
-public abstract class AbstractGraphQLController<T, U extends Number> implements GraphQLCrudController<T, U> {
+public abstract class AbstractGraphQLController<T, U extends Number, V extends ParentAggregate> implements GraphQLCrudController<T, U> {
     
     protected abstract NamedServiceCrud<T, U, String> getService();
-    protected abstract <V> V getOwner(Long ownerId);
+    protected abstract V getOwner(Long ownerId);
+    protected abstract T getAggregate(Long ownerId, String name);
 
     @Override
     public T find(U id) {
@@ -22,8 +23,8 @@ public abstract class AbstractGraphQLController<T, U extends Number> implements 
     }
 
     @Override
-    public T add(String name, Long ownerId) {
-        throw new UnsupportedOperationException("Add operation is not supported.");
+    public T addAggregate(String name, Long ownerId) {
+        return getService().add(getAggregate(ownerId, name));
     }
 
     @Override
@@ -35,12 +36,11 @@ public abstract class AbstractGraphQLController<T, U extends Number> implements 
     @Override
     public T changeOwner(U id, Long newOwnerId) {
         T entity = getService().find(id).get();
-        if (entity instanceof ChildAggregate) {
-            ((ChildAggregate) entity).setOwner(getOwner(newOwnerId));
-        } else {
-            throw new IllegalArgumentException("Entity with id: " + id + " is not an owned aggregate.");
+        try {
+            return getService().update(entity);
+        } catch (ClassCastException e) {
+            throw new IllegalArgumentException("Entity with id: " + id + " is not an child aggregate.", e);
         }
-        return getService().update(entity);
     }
 
     @Override

@@ -1,11 +1,8 @@
-package com.orbital3d.web.application.database;
+package com.orbital3d.web.application.database.entity;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.orbital3d.web.application.database.entity.Client;
-import com.orbital3d.web.application.database.entity.Page;
-import com.orbital3d.web.application.database.entity.Site;
 import com.orbital3d.web.forestmoon.ForestMoonApplication;
 
 @SpringBootTest(classes = ForestMoonApplication.class)

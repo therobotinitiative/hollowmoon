@@ -19,7 +19,6 @@ import com.orbital3d.web.application.service.type.ClientCode;
 import com.orbital3d.web.forestmoon.ForestMoonApplication;
 
 @SpringBootTest(classes = ForestMoonApplication.class)
-
 class ClientControllerTest {
 
 	@Autowired
@@ -31,7 +30,9 @@ class ClientControllerTest {
 	private ClientReposity clientRepository;
 
 	private static final String TEST_CLIENT_CODE = "test-code-123";
+	@SuppressWarnings("unused")
 	private static final String OLD_CLIENT_CODE = "old-code-456";
+	@SuppressWarnings("unused")
 	private static final String CHANGED_CLIENT_CODE = "changed-code-456";
 	private static final String UPDATED_CLIENT_CODE = "updated-code-456";
 	private static final String NEW_CLIENT_NAME = "New Name";
@@ -40,6 +41,8 @@ class ClientControllerTest {
 	 * Override ClientCodeService to avoid external HTTP calls during tests.
 	 */
 	@TestConfiguration
+	// Invoked by framework
+    @SuppressWarnings("unused")
 	static class TestConfig {
 		@Bean
 		@Primary
@@ -48,6 +51,8 @@ class ClientControllerTest {
 		}
 	}
 
+	// Used byframework
+	@SuppressWarnings("unused")
 	@BeforeEach
 	void setUp() {
 		graphQlTester = ExecutionGraphQlServiceTester.create(graphQlService);

@@ -23,6 +23,8 @@ public class SiteServiceTest {
     @Autowired
     private SiteRepository siteRepository;
 
+    // will be used
+    @SuppressWarnings("unused")
     @Autowired
     private ClientReposity clientRepository;
 

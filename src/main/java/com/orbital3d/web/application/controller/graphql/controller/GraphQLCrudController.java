@@ -20,7 +20,7 @@ public interface GraphQLCrudController<U, V> {
    /**
     * Add an aggregate.
     */
-   U add(String name, Long ownerId);
+   U addAggregate(String name, Long ownerId);
    /**
     * Remove an aggregate.
     */

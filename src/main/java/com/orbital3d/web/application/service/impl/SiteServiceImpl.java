@@ -97,7 +97,7 @@ public class SiteServiceImpl extends AbstractNamedServiceCrud<Site> implements S
     }
 
     @Override
-    public long count(Predicate predicate) {
+    public long count(Predicate<Site> predicate) {
 		return doCount(predicate, siteRepository.findAll());
     }
 

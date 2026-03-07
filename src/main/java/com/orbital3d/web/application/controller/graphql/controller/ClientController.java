@@ -1,9 +1,11 @@
 package com.orbital3d.web.application.controller.graphql.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -20,13 +22,10 @@ import com.orbital3d.web.application.service.ClientService;
  */
 @Controller
 public class ClientController implements GraphQLCrudController<Client, Long> {
-	private final ClientService clientService;
-	private final ClientCodeService clientCodeService;
-
-	ClientController(final ClientService clientService, final ClientCodeService clientCodeServce) {
-		this.clientService = clientService;
-		this.clientCodeService = clientCodeServce;
-	}
+	@Autowired
+	private ClientService clientService;
+	@Autowired
+	private ClientCodeService clientCodeService;
 
 	/**
 	 * Query {@link Client} by id.
@@ -47,7 +46,7 @@ public class ClientController implements GraphQLCrudController<Client, Long> {
 	 * @return {@Client} with client code
 	 */
 	@QueryMapping(value = "clientByClientCode")
-	Client clientByClientCode(@Argument String clientCode) {
+	public Client clientByClientCode(@Argument String clientCode) {
 		return clientService.findByClientCode(clientCode);
 	}
 
@@ -59,7 +58,7 @@ public class ClientController implements GraphQLCrudController<Client, Long> {
 	 * @return Stored {@link Client} object
 	 */
 	@MutationMapping(value = "addClient")
-	Client add(@Argument String clientName, @Argument String clientCode) {
+	public Client add(@Argument String clientName, @Argument String clientCode) {
 		if (clientCode == null) {
 			clientCode = clientCodeService.resolveClientCode().clientCode();
 		}
@@ -101,7 +100,7 @@ public class ClientController implements GraphQLCrudController<Client, Long> {
 	 * @return {@Client} with changed client code
 	 */
 	@MutationMapping
-	Client changeClientCode(@Argument String clientCode, @Argument Long clientId) {
+	public Client changeClientCode(@Argument String clientCode, @Argument Long clientId) {
 		Client client = clientService.find(clientId).get();
 		client.setClientCode(clientCode);
 		return clientService.update(client);
@@ -121,18 +120,18 @@ public class ClientController implements GraphQLCrudController<Client, Long> {
 	}
 
     @Override
-    public Client add(String name, Long ownerId) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public Client changeOwner(Long id, Long newOwnerId) {
         throw new UnsupportedOperationException("Client does not have an owner.");
     }
 
 	@Override
 	public List<Client> findByOwner(Long ownerId) {
-		return new ArrayList<>(clientService.findByOwner(ownerId));
+		return Collections.emptyList();
+	}
+
+	@Override
+	public Client addAggregate(String name, Long ownerId) {
+		return Client.of(name);
 	}
 
 }

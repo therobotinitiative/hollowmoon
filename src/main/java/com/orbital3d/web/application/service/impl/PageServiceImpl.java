@@ -75,7 +75,7 @@ public class PageServiceImpl extends AbstractNamedServiceCrud<Page> implements P
 	}
 
     @Override
-    public long count(Predicate predicate) {
+    public long count(Predicate<Page> predicate) {
         return doCount(predicate, pageRepository.findAll());
     }
 

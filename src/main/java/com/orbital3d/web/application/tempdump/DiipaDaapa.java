@@ -19,6 +19,7 @@ import com.orbital3d.web.application.service.SiteService;
  * and if you still don't get it then I suggest using your brain and if that doesn't help then
  * change your profession because programming clearly isn't for you.
  */
+@SuppressWarnings("unused")
 @Component
 public class DiipaDaapa {
 	private static final Logger LOG = LoggerFactory.getLogger(DiipaDaapa.class);

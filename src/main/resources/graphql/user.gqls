@@ -1,0 +1,18 @@
+"""
+ GraphQL schema for User
+"""
+type User {
+	id:  ID!
+	userName: String!
+}
+
+extend type Query {
+	allUsers: [User!]!
+	userById(userId : ID!): User
+}
+
+extend type Mutation {
+	addUser(userName : String!): User
+	removeUser(userId : ID!): Boolean
+	renameUser(userId : ID!, userName : String!): User
+}

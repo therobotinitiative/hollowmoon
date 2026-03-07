@@ -30,6 +30,8 @@ public class ClientServiceImpl extends AbstractNamedServiceCrud<Client> implemen
 	@Autowired
 	private ClientReposity clientRepository;
 
+	// will be used later
+	@SuppressWarnings("unused")
 	@Autowired
 	private SiteService siteService;
 
@@ -113,7 +115,7 @@ public class ClientServiceImpl extends AbstractNamedServiceCrud<Client> implemen
     }
 
     @Override
-    public long count(Predicate predicate) {
+    public long count(Predicate<Client> predicate) {
 		return doCount(predicate, clientRepository.findAll());
     }
 

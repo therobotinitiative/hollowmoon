@@ -1,0 +1,43 @@
+@startuml Aggregate class diagram
+interface ChildAggregate
+interface ParentAggregate
+class Client
+class Site {
+    -ownerid
+}
+class Page{
+    -ownerid
+}
+class PageElement {
+    -ownerid
+}
+class User {
+    -Group[]
+    -Role[]
+    -Permission[]
+}
+class Group {
+    -Permission[]
+    -Role[]
+}
+class Permission {
+    -permission
+}
+class Role {
+    -Permission[]
+}
+ParentAggregate <|-- Client
+ParentAggregate <|-- Site
+ParentAggregate <|-- Page
+ParentAggregate <|-- User
+ParentAggregate <|-- Group
+ParentAggregate <|-- Permission
+ChildAggregate <|-- Site
+ChildAggregate <|-- Page
+ChildAggregate <|-- PageElement
+Page o--PageElement
+Role o-- Permission
+User -- Group
+User -- Permission
+User -- Role
+@enduml 

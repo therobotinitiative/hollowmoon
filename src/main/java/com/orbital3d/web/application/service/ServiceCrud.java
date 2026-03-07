@@ -48,7 +48,7 @@ public interface ServiceCrud<T, U extends Number> {
     /**
      * @return Number of stored aggregatets matching the {@link Predicate}
      */
-    long count(Predicate predicate);
+    long count(Predicate<T> predicate);
 
     /**
      * Delete stored aggregate.
