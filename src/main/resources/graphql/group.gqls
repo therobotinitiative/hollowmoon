@@ -1,0 +1,18 @@
+"""
+ GraphQL schema for Group
+"""
+type Group {
+	id:  ID!
+	groupName: String!
+}
+
+extend type Query {
+	allGroups: [Group!]!
+	groupById(groupId : ID!): Group
+}
+
+extend type Mutation {
+	addGroup(groupName : String!): Group
+	removeGroup(groupId : ID!): Boolean
+	renameGroup(groupId : ID!, groupName : String!): Group
+}

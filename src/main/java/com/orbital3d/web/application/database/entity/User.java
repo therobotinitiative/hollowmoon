@@ -19,7 +19,7 @@ public class User implements ParentAggregate {
     private String userName;
     @Column(nullable = false)
     private byte [] password;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private byte [] salt;
 
     public User() {

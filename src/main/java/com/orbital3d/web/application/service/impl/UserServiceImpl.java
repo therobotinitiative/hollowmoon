@@ -38,6 +38,8 @@ public class UserServiceImpl extends AbstractNamedServiceCrud<User> implements U
         if (aggregate.getUserName()== null) {
             throw new IllegalArgumentException("User namecannot be null");
         }
+        aggregate.setPassword(new byte[]{0x00,0x01});
+        aggregate.setSalt(new byte[]{0x00,0x01});
         return userRepository.save(aggregate);
     }
 

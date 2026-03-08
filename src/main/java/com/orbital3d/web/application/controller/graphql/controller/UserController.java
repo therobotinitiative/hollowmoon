@@ -19,7 +19,7 @@ public class UserController implements GraphQLCrudController<User, Long> {
     private UserService userService;
 
     @Override
-    @QueryMapping(value = "useById")
+    @QueryMapping(value = "userById")
     public User find(Long id) {
         return userService.find(id).get();
     }
@@ -35,9 +35,13 @@ public class UserController implements GraphQLCrudController<User, Long> {
         return userService.rename(userId, userName);
     }
 
+    @MutationMapping
+    public User addUser(@Argument String userName) {
+        return userService.add(User.of(userName));
+    }
+
     @Override
-    @MutationMapping(value = "addUser")
-    public User addAggregate(@Argument String name, Long ownerId) {
+    public User addAggregate(String name, Long ownerId) {
         return userService.add(User.of(name));
     }
 
