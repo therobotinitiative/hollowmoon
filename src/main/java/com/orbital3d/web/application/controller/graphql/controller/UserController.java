@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.orbital3d.web.application.database.entity.User;
 import com.orbital3d.web.application.service.UserService;
+import com.orbital3d.web.security.CryptoTool;
 
 @Controller
 public class UserController implements GraphQLCrudController<User, Long> {
@@ -37,12 +38,15 @@ public class UserController implements GraphQLCrudController<User, Long> {
 
     @MutationMapping
     public User addUser(@Argument String userName) {
-        return userService.add(User.of(userName));
+        User user = User.of(userName);
+        user.setPassword(CryptoTool.generateSalt());
+        user.setSalt(CryptoTool.generateSalt());
+        return userService.add(user);
     }
 
     @Override
     public User addAggregate(String name, Long ownerId) {
-        return userService.add(User.of(name));
+        return addUser(name);
     }
 
     @Override

@@ -42,8 +42,8 @@ public class SiteController extends AbstractGraphQLController<Site, Long, Client
 	}
 
 	@QueryMapping
-	public List<Site> sitesById(@Argument Long userId) {
-		return new ArrayList<>(siteService.findByOwner(userId));
+	public List<Site> sitesByOwner(@Argument Long ownerId) {
+		return new ArrayList<>(siteService.findByOwner(ownerId));
 	}
 
 	@QueryMapping
