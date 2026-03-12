@@ -3,6 +3,8 @@ package com.orbital3d.web.application.controller.graphql.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -20,6 +22,8 @@ import com.orbital3d.web.application.service.SiteService;
  */
 @Controller
 public class PageController extends AbstractGraphQLController<Page, Long, Site> {
+	private static final Logger LOG = LoggerFactory.getLogger(PageController.class);
+
 	@Autowired
 	private PageService pageService;
 
@@ -33,12 +37,17 @@ public class PageController extends AbstractGraphQLController<Page, Long, Site> 
 
 	@Override
 	protected Site getOwner(Long ownerId) {
+		LOG.debug("***********> Getting owner for {}", ownerId);
 		return siteService.find(ownerId).get();
 	}
 
 	@Override
 	protected Page getAggregate(Long ownerId, String name) {
-		return Page.of(getOwner(ownerId), name);
+		Site owner = this.getOwner(ownerId);
+		if(owner == null) {
+			throw new IllegalArgumentException("owner cannot be null, owner id:"+ownerId);
+		}
+		return Page.of(owner, name);
 	}
 
 	@QueryMapping
@@ -52,8 +61,8 @@ public class PageController extends AbstractGraphQLController<Page, Long, Site> 
 	}
 
 	@MutationMapping
-	public Page addPage(@Argument String pageMame, @Argument Long ownerId) {
-		return this.addAggregate(pageMame, ownerId);
+	public Page addPage(@Argument String pageName, @Argument Long ownerId) {
+		return this.addAggregate(pageName, ownerId);
 	}
 
 	@MutationMapping

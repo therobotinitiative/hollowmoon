@@ -68,6 +68,16 @@ public class Page implements ParentAggregate, ChildAggregate<Site> {
 		this.owner = owner;
 	}
 
+	public static Page of(Site owner, String name) {
+		if(name == null) {
+			throw new IllegalArgumentException("name cannot be null");
+		}
+		if(owner == null) {
+			throw new IllegalArgumentException("owner cannot be null");
+		}
+		return new Page(null, name, owner);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -82,10 +92,6 @@ public class Page implements ParentAggregate, ChildAggregate<Site> {
 	@Override
 	public String toString() {
 		return "Page [id=" + id + ", name=" + name + ", owner=" + owner + "]";
-	}
-
-	public static Page of(Site owner, String name) {
-		return new Page(null, name, owner);
 	}
 
     @Override
